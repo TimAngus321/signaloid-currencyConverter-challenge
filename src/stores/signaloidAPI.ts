@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { defineStore } from 'pinia'
-import { useSigAPIComposable } from '@/composables/useSignaloidAPICalls'
 
 type SourceCodeTaskRequest = {
   Type: 'SourceCode'
@@ -36,7 +35,7 @@ export const useSignaloidAPIStore = defineStore('signaloidAPI', {
       console.log('Submitting the task to the API...')
       // clear taskOutputRes for each new request
       this.taskOutputRes = {}
-      let taskPostResponse
+      let taskPostResponse: any | undefined
       let taskID
       let taskStatus
       try {
