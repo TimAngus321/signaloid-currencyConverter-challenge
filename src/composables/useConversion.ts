@@ -40,6 +40,8 @@ export function useConversion() {
       prepCreateTask(amount.value, minValue.value, maxValue.value)
     } else {
       console.log('Form is invalid.')
+      alert('Please provide the amount, minValue and maxValue as described')
+      return
     }
   }
 

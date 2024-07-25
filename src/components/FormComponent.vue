@@ -14,10 +14,6 @@ const {
   handleSubmit
 } = useConversion()
 
-// Check submit rememeber to remove
-const test = () => {
-  console.log(amount.value)
-}
 // BOTH MIN AND MAX VALUES MUST BE ABOVE AMOUNT FOR CONVERSION - CREATE INVALID RULES AND MESSAGE
 // If I have time move logic to useConversion so it's more reusable and cleaner here
 </script>

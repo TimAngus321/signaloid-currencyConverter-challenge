@@ -27,29 +27,34 @@ export const useSigAPIComposable = () => {
     minValue: number | null,
     maxValue: number | null
   ) => {
-    const CProgramToRun = `
-    #include <stdio.h>
+    const CProgramToRun = `#include <stdio.h>
+#include <stdlib.h>
 #include <uxhw.h>
 
-int
-main(int argc, char *  argv[])
+int main(int argc, char *argv[])
 {
-	double	a, b, c;
+    if (argc < 2) {
+        fprintf(stderr, "Usage: %s <${amount}>\\n", argv[0]);
+        return 1;
+    }
 
-	a = UxHwDoubleUniformDist(0.5, 1.0);
-	printf("a = %lf\n", a);
+    double amountVal = atof(argv[1]);
+    double a, b, c;
 
-	b = UxHwDoubleUniformDist(10.0, 20.0);
-	printf("b = %lf\n", b);
+    a = UxHwDoubleUniformDist(0, ${amount});
+    printf("a = %lf\\n", a);
 
-	c = (a+b)/(a-b);
-	printf("c = %lf\n", c);
+    b = UxHwDoubleUniformDist(${minValue}, ${maxValue});
+    printf("b = %lf\\n", b);
+
+    c = (a + b) / (a - b);
+    printf("c = %lf\\n", c);
 
 #ifdef DEBUG
-	printf("debug message\n");
+    printf("debug message\\n");
 #endif
 
-	return 0;
+    return 0;
 }`
 
     const taskRequest: SourceCodeTaskRequest = {

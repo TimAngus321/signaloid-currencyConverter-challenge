@@ -23,14 +23,19 @@ export const useSignaloidAPIStore = defineStore('signaloidAPI', {
         Authorization: import.meta.env.VITE_SIGNALOID_API_KEY,
         'Content-Type': 'application/json'
       }
-    })
+    }),
+    taskOutputRes: {}
   }),
-  getters: {},
+  getters: {
+    getTaskOutputRes: (state) => state.taskOutputRes
+  },
   actions: {
     // This unholy monstrosity needs to be split up and cleaned up.
     // Remember to store resuts as state so I can use the getter to pull it wherever
     async createTask(taskRequest: SourceCodeTaskRequest) {
       console.log('Submitting the task to the API...')
+      // clear taskOutputRes for each new request
+      this.taskOutputRes = {}
       let taskPostResponse
       let taskID
       let taskStatus
@@ -73,12 +78,17 @@ export const useSignaloidAPIStore = defineStore('signaloidAPI', {
       console.log('Fetching task outputs...')
       console.log(`/tasks/${taskID}/outputs`)
       let taskOutputsResponse
+      // I think this was intended to be called seperately and needs time for the task to be found. Adding a large delay
+      // resolves this for the moment.
+      // Remeber to split these all up later
       await delay(5000)
       try {
         // get task data from API
         taskOutputsResponse = await this.sigClient.get(`/tasks/${taskID}/outputs`)
         console.log(`taskOutputsResponse `, taskOutputsResponse)
         console.log(`taskOutputsResponse.data.Stdout `, taskOutputsResponse.data.Stdout)
+        this.taskOutputRes = taskOutputsResponse.data.Stdout
+        console.log(`taskOutputRes state in pinia store`, this.taskOutputRes)
         /*
          * response.data will contain the task outputs object
          */
