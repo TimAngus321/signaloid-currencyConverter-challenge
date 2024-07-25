@@ -1,7 +1,6 @@
 // Clean up pinia store by adding functions here and using them in the store
 // Use Pinia for state stuff and this for logic
 
-import axios from 'axios'
 import { useSignaloidAPIStore } from '../stores/signaloidAPI'
 
 type SourceCodeTaskRequest = {

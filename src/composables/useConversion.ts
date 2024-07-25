@@ -1,9 +1,7 @@
 import { ref, computed } from 'vue'
-// import { useSignaloidAPIStore } from '../stores/signaloidAPI'
 import { useSigAPIComposable } from '@/composables/useSignaloidAPICalls'
 
 export function useConversion() {
-  //   const sigAPI = useSignaloidAPIStore()
   const { prepCreateTask } = useSigAPIComposable()
 
   const model = ref<boolean>(false)
