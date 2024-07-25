@@ -14,12 +14,18 @@ export function useConversion() {
   const minMaxValue = computed<string>(() => (model.value ? 'GBP' : 'EUR'))
 
   // Validation for the values
+  // Removed rule that conversion rate needs to be larger than amount - brain fart.
+
+  const isAmountValid = computed<boolean>(() => {
+    return amount.value !== null
+  })
+
   const isMinValueValid = computed<boolean>(() => {
-    return minValue.value !== null && (amount.value === null || minValue.value > amount.value)
+    return minValue.value !== null
   })
 
   const isMaxValueValid = computed<boolean>(() => {
-    return maxValue.value !== null && (amount.value === null || maxValue.value > amount.value)
+    return maxValue.value !== null
   })
 
   const isMinMaxValid = computed<boolean>(() => {
@@ -27,7 +33,9 @@ export function useConversion() {
   })
 
   const isFormValid = computed<boolean>(() => {
-    return isMinValueValid.value && isMaxValueValid.value && isMinMaxValid.value
+    return (
+      isAmountValid.value && isMinValueValid.value && isMaxValueValid.value && isMinMaxValid.value
+    )
   })
 
   const handleSubmit = () => {
@@ -52,6 +60,7 @@ export function useConversion() {
     maxValue,
     currency,
     minMaxValue,
+    isAmountValid,
     isMinValueValid,
     isMaxValueValid,
     isMinMaxValid,
