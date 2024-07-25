@@ -1,8 +1,10 @@
 import { ref, computed } from 'vue'
-import { useSignaloidAPI } from '../stores/signaloidAPI'
+// import { useSignaloidAPIStore } from '../stores/signaloidAPI'
+import { useSigAPIComposable } from '@/composables/useSignaloidAPICalls'
 
 export function useConversion() {
-  const sigAPI = useSignaloidAPI()
+  //   const sigAPI = useSignaloidAPIStore()
+  const { prepCreateTask } = useSigAPIComposable()
 
   const model = ref<boolean>(false)
   const amount = ref<number | null>(null)
@@ -28,14 +30,14 @@ export function useConversion() {
     return isMinValueValid.value && isMaxValueValid.value && isMinMaxValid.value
   })
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (isFormValid.value) {
       console.log('Form is valid:', {
         amount: amount.value,
         minValue: minValue.value,
         maxValue: maxValue.value
       })
-      sigAPI.createTask()
+      prepCreateTask(amount.value, minValue.value, maxValue.value)
     } else {
       console.log('Form is invalid.')
     }
