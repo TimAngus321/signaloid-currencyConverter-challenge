@@ -1,7 +1,20 @@
 <script setup lang="ts">
 import { useConversion } from '../composables/useConversion'
 
-const { model, amount, minValue, maxValue, currency, minMaxValue } = useConversion()
+const {
+  model,
+  amount,
+  minValue,
+  maxValue,
+  currency,
+  minMaxValue,
+  isMinValueValid,
+  isMaxValueValid,
+  isMinMaxValid,
+  handleSubmit
+} = useConversion()
+
+// Check submit rememeber to remove
 const test = () => {
   console.log(amount.value)
 }
@@ -12,7 +25,7 @@ const test = () => {
   <div class="flex w-full">
     <form
       class="flex flex-col gap-2 justify-center justify-items-center w-full text-white"
-      @submit.prevent="test"
+      @submit.prevent="handleSubmit"
     >
       <div class="flex w-full gap-4 justify-items-center">
         <ToggleSwitch class="w-40" v-model="model" />
@@ -41,12 +54,9 @@ const test = () => {
       <Message v-if="minValue === null" class="text-xs" severity="error"
         >You must enter an amount</Message
       >
-      <Message
-        v-if="maxValue != null && minValue != null && maxValue < minValue"
-        class="text-xs"
-        severity="error"
-        >You must enter an amount higher than the minimum & amount value</Message
-      >
+      <Message v-if="!isMinValueValid" class="text-xs" severity="error">
+        You must enter a minimum value greater than the amount
+      </Message>
       <label for="Max Rate">Max Conversion Rate</label>
       <InputNumber
         inputId="Max Rate"
@@ -58,12 +68,12 @@ const test = () => {
       <Message v-if="maxValue === null" class="text-xs" severity="error"
         >You must enter an amount</Message
       >
-      <Message
-        v-if="maxValue != null && minValue != null && maxValue < minValue"
-        class="text-xs"
-        severity="error"
-        >You must enter an amount higher than the minimum value</Message
-      >
+      <Message v-if="!isMaxValueValid" class="text-xs" severity="error">
+        You must enter a maximum value greater than the amount
+      </Message>
+      <Message v-if="!isMinMaxValid" class="text-xs" severity="error">
+        You must enter a maximum value greater than the minimum value
+      </Message>
       <Button class="w-40 flex justify-center" type="submit">Submit</Button>
     </form>
   </div>
