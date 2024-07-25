@@ -1,4 +1,11 @@
-# signaloid-currencyConverter-challenge
+# This app has been deployed on Vercel for a quick check
+
+In the challenge description it said to deploy the app so I did it quickly with Vercel.
+I'm not sure if this is what was intended but I've added how to run it locally below also.
+
+[Click here to see the online version](https://signaloid-currency-converter-challenge-qkpc.vercel.app/)
+
+## signaloid-currencyConverter-challenge
 
 The web application should:
 
@@ -28,8 +35,13 @@ git clone git@github.com:TimAngus321/signaloid-currencyConverter-challenge.git
 ```
 
 ```sh
-yarn install
-yarn format
+yarn install && yarn format
+```
+
+- Add a .env file to the root folder of the project
+- Add your signaloid api key using the following name exactly: VITE_SIGNALOID_API_KEY=<`your api key here`>
+
+```sh
 yarn dev
 ```
 
@@ -40,11 +52,13 @@ yarn dev
 
 - Work out final request issue
 - Split requests into each part as shown in quickstart but I may end up running them in one function
-- Look into the small C program and check it's really doing what I want (I'm not familiar with C)
+- Look into the small C program and check it's really doing what I want (I did my best but I'm not familiar with C)
 - Clean up code (I've kept console.logs to show my working)
 - Add cypress test
 - Put data into chart
-- deploy with Vercel or Netlify
+- deploy with Vercel or Netlify - decided to do this quickly
+
+### The following was auto generated when creating the vue 3 app. Feel free to ignore
 
 This template should help get you started developing with Vue 3 in Vite.
 
