@@ -3,6 +3,8 @@ import { computed } from 'vue'
 import ComponentTitle from './ComponentTitle.vue'
 import { useSignaloidAPIStore } from '../stores/signaloidAPI'
 
+// Best results I could get and quickly got from pinia store.
+// It will update on each request
 const sigAPIStore = useSignaloidAPIStore()
 
 const isTaskOutputEmpty = computed(() => {
