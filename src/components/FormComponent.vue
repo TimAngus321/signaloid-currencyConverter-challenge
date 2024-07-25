@@ -8,13 +8,13 @@ const {
   maxValue,
   currency,
   minMaxValue,
+  isAmountValid,
   isMinValueValid,
   isMaxValueValid,
   isMinMaxValid,
   handleSubmit
 } = useConversion()
 
-// BOTH MIN AND MAX VALUES MUST BE ABOVE AMOUNT FOR CONVERSION - CREATE INVALID RULES AND MESSAGE
 // If I have time move logic to useConversion so it's more reusable and cleaner here
 </script>
 <template>
@@ -36,7 +36,7 @@ const {
         mode="currency"
         :currency="currency"
       />
-      <Message v-if="minValue === null" class="text-xs" severity="error"
+      <Message v-if="!isAmountValid" class="text-xs" severity="error"
         >You must enter an amount</Message
       >
       <label for="Min Rate">Min Conversion Rate</label>
@@ -47,12 +47,9 @@ const {
         mode="currency"
         :currency="minMaxValue"
       />
-      <Message v-if="minValue === null" class="text-xs" severity="error"
-        >You must enter an amount</Message
+      <Message v-if="!isMinValueValid" class="text-xs" severity="error"
+        >You must enter a minimum conversion rate</Message
       >
-      <Message v-if="!isMinValueValid" class="text-xs" severity="error">
-        You must enter a minimum value greater than the amount
-      </Message>
       <label for="Max Rate">Max Conversion Rate</label>
       <InputNumber
         inputId="Max Rate"
@@ -61,14 +58,11 @@ const {
         mode="currency"
         :currency="minMaxValue"
       />
-      <Message v-if="maxValue === null" class="text-xs" severity="error"
-        >You must enter an amount</Message
+      <Message v-if="!isMaxValueValid" class="text-xs" severity="error"
+        >You must enter a maximum conversion rate</Message
       >
-      <Message v-if="!isMaxValueValid" class="text-xs" severity="error">
-        You must enter a maximum value greater than the amount
-      </Message>
       <Message v-if="!isMinMaxValid" class="text-xs" severity="error">
-        You must enter a maximum value greater than the minimum value
+        The maximum conversion value must be greater than the minimum conversion value
       </Message>
       <Button class="w-40 flex justify-center" type="submit">Submit</Button>
     </form>
