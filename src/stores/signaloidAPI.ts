@@ -92,8 +92,10 @@ export const useSignaloidAPIStore = defineStore('signaloidAPI', {
         /*
          * response.data will contain the task outputs object
          */
-        await delay(5000)
+        await delay(2000)
         if (taskOutputsResponse.data.Stdout) {
+          // sent email to support regarding this failed request. Error is missing key but according to docs don't see a need
+          // Ran out of time for finding a solution
           const outputStream = await axios.get(taskOutputsResponse.data.Stdout)
           console.log(`Task Stdout: ${outputStream.data}`)
         }
