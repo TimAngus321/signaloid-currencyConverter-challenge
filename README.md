@@ -3,7 +3,7 @@
 In the challenge description it said to deploy the app so I did it quickly with Vercel.
 I'm not sure if this is what was intended but I've added how to run it locally below also.
 
-[Click here to see the online version](https://signaloid-currency-converter-challenge-qkpc.vercel.app/)
+[Click here to see the online version]([https://signaloid-currency-converter-challenge-qkpc.vercel.app/](https://signaloid-currency-converter-challenge-qkpc-nb9os8jqt.vercel.app/))
 
 ## signaloid-currencyConverter-challenge
 
